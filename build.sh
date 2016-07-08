@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go build -o bin/ubuntu-go-qml-template -v -x src/main.go
+go build -o bin/brew-buddy -v -x src/main.go

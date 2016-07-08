@@ -4,21 +4,21 @@ import GoProject 1.1
 
 GoProject {
     Application {
-        name: "ubuntu-go-qml-template"
+        name: "brew-buddy"
 
         GoFiles {
         }
 
         /* Include .qml, .js, and image files from main directory and subdirectories */
         QmlFiles {
-            directory:"share/ubuntu-go-qml-template"
+            directory:"share/brew-buddy"
         }
         JavaScriptFiles {
-            directory:"share/ubuntu-go-qml-template"
+            directory:"share/brew-buddy"
         }
         Files {
             directory: "."
-            paths: ["manifest.json","ubuntu-go-qml-template.apparmor"]
+            paths: ["manifest.json","brew-buddy.apparmor"]
         }
     }
     Package {

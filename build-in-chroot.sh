@@ -18,16 +18,16 @@ find $CLICK_DIR/.. -name "*.click" -exec rm {} \;
 
 # Build the project
 
-click chroot -a armhf -f ubuntu-sdk-15.04 -s vivid run CGO_ENABLED=1 GOARCH=arm GOARM=7 PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig GOPATH=$GOPATH GOROOT=$GO_DIR PWD=$PWD CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ $GO_BIN_DIR/go build -o $BIN_DIR/linux_arm/ubuntu-go-qml-template -ldflags '-extld=arm-linux-gnueabihf-gcc' -v -x src/main.go
+click chroot -a armhf -f ubuntu-sdk-15.04 -s vivid run CGO_ENABLED=1 GOARCH=arm GOARM=7 PKG_CONFIG_LIBDIR=/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig GOPATH=$GOPATH GOROOT=$GO_DIR PWD=$PWD CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ $GO_BIN_DIR/go build -o $BIN_DIR/linux_arm/brew-buddy -ldflags '-extld=arm-linux-gnueabihf-gcc' -v -x src/main.go
 
 # Copy files into click directory
 
-cp $BIN_DIR/linux_arm/ubuntu-go-qml-template $CLICK_DIR
+cp $BIN_DIR/linux_arm/brew-buddy $CLICK_DIR
 cp -R $DIR/share $CLICK_DIR
 cp $DIR/manifest.json $CLICK_DIR
-cp $DIR/ubuntu-go-qml-template.apparmor $CLICK_DIR
-cp $DIR/ubuntu-go-qml-template.desktop $CLICK_DIR
-cp $DIR/ubuntu-go-qml-template.png $CLICK_DIR
+cp $DIR/brew-buddy.apparmor $CLICK_DIR
+cp $DIR/brew-buddy.desktop $CLICK_DIR
+cp $DIR/brew-buddy.png $CLICK_DIR
 
 # Build click package
 

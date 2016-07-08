@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Beer Buddy (Golang)
-Exec=ubuntu-go-qml-template
-Icon=ubuntu-go-qml-template.png
+Exec=brew-buddy
+Icon=brew-buddy.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true

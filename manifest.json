@@ -1,15 +1,15 @@
 {
-    "name": "ubuntu-go-qml-template.nikwen",
+    "name": "brew-buddy.larryprice",
     "description": "Your description",
     "architecture": "armhf",
-    "title": "ubuntu-go-qml-template",
+    "title": "brew-buddy",
     "hooks": {
-        "ubuntu-go-qml-template": {
-            "apparmor": "ubuntu-go-qml-template.apparmor",
-            "desktop":  "ubuntu-go-qml-template.desktop"
+        "brew-buddy": {
+            "apparmor": "brew-buddy.apparmor",
+            "desktop":  "brew-buddy.desktop"
         }
     },
     "version": "0.1",
-    "maintainer": "Niklas Wenzel <nikwen.developer@gmail.com>",
+    "maintainer": "Larry Price <larry.price.dev@gmail.com>",
     "framework" : "ubuntu-sdk-15.04"
 }
