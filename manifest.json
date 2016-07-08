@@ -1,0 +1,15 @@
+{
+    "name": "ubuntu-go-qml-template.nikwen",
+    "description": "Your description",
+    "architecture": "armhf",
+    "title": "ubuntu-go-qml-template",
+    "hooks": {
+        "ubuntu-go-qml-template": {
+            "apparmor": "ubuntu-go-qml-template.apparmor",
+            "desktop":  "ubuntu-go-qml-template.desktop"
+        }
+    },
+    "version": "0.1",
+    "maintainer": "Niklas Wenzel <nikwen.developer@gmail.com>",
+    "framework" : "ubuntu-sdk-15.04"
+}
