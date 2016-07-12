@@ -1,50 +1,80 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.2
+import QtQuick.Layouts 1.1
+import Ubuntu.Components 1.3
 
 /*!
     \brief MainView with a Label and Button elements.
 */
 
 MainView {
-    // objectName for functional testing purposes (autopilot-qt5)
     objectName: "mainView"
-
-    // Note! applicationName needs to match the "name" field of the click manifest
     applicationName: "brew-buddy.larryprice"
-
-    /*
-     This property enables the application to change orientation
-     when the device is rotated. The default is false.
-    */
-    //automaticOrientation: true
 
     width: units.gu(100)
     height: units.gu(75)
 
     Page {
-        title: i18n.tr("Simple")
+        header: PageHeader {
+            id: pageHeader
+            title: i18n.tr("Brew Buddy")
+            leadingActionBar.actions: [
+                Action {
+                    iconName: "back"
+                    visible: false
+                }
+            ]
+            trailingActionBar.actions: [
+                Action {
+                    iconName: "add"
+                    onTriggered: {
+                        console.debug("add")
+                    }
+                }
+            ]
+        }
 
         Column {
-            spacing: units.gu(1)
+            spacing: units.gu(2)
             anchors {
-                margins: units.gu(2)
-                fill: parent
-            }
-
-            Label {
-                id: label
-                objectName: "label"
-
-                text: ctrl.message
+                horizontalCenter: parent.horizontalCenter
+                top: pageHeader.bottom
+                topMargin: parent.height / 4
             }
 
             Button {
-                objectName: "button"
-                width: parent.width
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: "Start a New Brew"
+                onClicked: print("add")
+                color: UbuntuColors.green
 
-                text: i18n.tr("Tap me!")
+                // iconName: "compose"
+                width: units.gu(30)
+            }
 
-                onClicked: ctrl.hello()
+            Button {
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: "In Progress Brews"
+                onClicked: print("fermenting")
+                color: UbuntuColors.green
+
+                // iconName: "compose"
+                width: units.gu(30)
+            }
+
+            Button {
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: "Previous Brews"
+                onClicked: print("history")
+                color: UbuntuColors.green
+
+                // iconName: "compose"
+                 width: units.gu(30)
             }
         }
     }

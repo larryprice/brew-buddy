@@ -7,11 +7,12 @@ GoProject {
         name: "brew-buddy"
 
         GoFiles {
+            directory:"src/"
         }
 
         /* Include .qml, .js, and image files from main directory and subdirectories */
         QmlFiles {
-            directory:"share/brew-buddy"
+            directory:"share/qml"
         }
         JavaScriptFiles {
             directory:"share/brew-buddy"
