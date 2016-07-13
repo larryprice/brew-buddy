@@ -14,7 +14,7 @@ func main() {
 
 func run() error {
 	engine := qml.NewEngine()
-	component, err := engine.LoadFile("share/qml/main.qml")
+  component, err := engine.LoadFile("share/qml/Main.qml")
 	if err != nil {
 		return err
 	}
