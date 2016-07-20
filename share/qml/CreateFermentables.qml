@@ -3,18 +3,18 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Themes 1.3
 
 /*!
-    \brief CreateRecipe page for defining brew ingredients
+    \brief CreateFermentables page for defining brew ingredients
 */
 
 Page {
     id: createRecipe
     header: PageHeader {
-        title: i18n.tr("Recipe - Grain Bill")
+        title: i18n.tr("Recipe - Fermentables")
         trailingActionBar.actions: [
             Action {
                 iconName: "add"
                 onTriggered: {
-                    fermentables.append({name: "grain #" + (fermentables.count+1)})
+                    pageStack.addPageToNextColumn(createRecipe, Qt.resolvedUrl("AddFermentable.qml"))
                 }
             }
         ]

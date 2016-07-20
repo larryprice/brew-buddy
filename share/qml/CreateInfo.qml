@@ -72,7 +72,7 @@ Page {
 
             text: "Continue to Recipe"
             color: theme.palette.normal.positive
-            onClicked: pageStack.addPageToNextColumn(createInfo, Qt.resolvedUrl("CreateRecipe.qml"))
+            onClicked: pageStack.addPageToNextColumn(createInfo, Qt.resolvedUrl("CreateFermentables.qml"))
         }
     }
 }
