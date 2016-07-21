@@ -16,12 +16,15 @@ Page {
                 onTriggered: {
                     pageStack.addPageToNextColumn(createRecipe, addFermentablePage)
 
-                    addFermentablePage.add.connect(function(type_, desc_, weight_, units_) {
-                        console.debug("ok, adding...", type_, desc_, weight_, units_)
-                    })
+                    addFermentablePage.add.connect(onAddFermentable)
                 }
             }
         ]
+    }
+
+    function onAddFermentable(type_, desc_, weight_, units_) {
+        addFermentablePage.add.disconnect(onAddFermentable)
+        fermentables.append({name: desc_, type_: type_, weight: weight_, weightUnits: units_})
     }
 
     AddFermentable {
@@ -42,8 +45,26 @@ Page {
         model: fermentables
 
         delegate: ListItem {
-            Label {
-                text: name
+            height: units.gu(9)
+            Column {
+                anchors {
+                    margins: units.gu(1)
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+
+                Label {
+                    text: name
+                    fontSize: "large"
+                }
+                Label {
+                    text: weight + " " + weightUnits
+                }
+                Label {
+                    text: type_
+                    fontSize: "small"
+                }
             }
         }
     }

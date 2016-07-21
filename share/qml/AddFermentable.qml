@@ -118,7 +118,6 @@ Page {
             text: "Add"
             color: theme.palette.normal.positive
             onTriggered: {
-                console.debug("add this!")
                 add(fermentableType.text, description.text, weight.text, weightUnits.text);
                 pageStack.removePages(addFermentable)
             }
