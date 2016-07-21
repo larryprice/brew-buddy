@@ -117,8 +117,16 @@ Page {
         Button {
             text: "Add"
             color: theme.palette.normal.positive
+            enabled: description.text !== "" && weight.text !== ""
             onTriggered: {
                 add(fermentableType.text, description.text, weight.text, weightUnits.text);
+
+                // reset page
+                fermentableType.text = "Malt"
+                description.text = ""
+                weight.text = ""
+                weightUnits.text = "lbs"
+
                 pageStack.removePages(addFermentable)
             }
         }
