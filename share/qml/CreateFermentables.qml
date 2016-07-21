@@ -14,10 +14,18 @@ Page {
             Action {
                 iconName: "add"
                 onTriggered: {
-                    pageStack.addPageToNextColumn(createRecipe, Qt.resolvedUrl("AddFermentable.qml"))
+                    pageStack.addPageToNextColumn(createRecipe, addFermentablePage)
+
+                    addFermentablePage.add.connect(function(type_, desc_, weight_, units_) {
+                        console.debug("ok, adding...", type_, desc_, weight_, units_)
+                    })
                 }
             }
         ]
+    }
+
+    AddFermentable {
+        id: addFermentablePage
     }
 
     ListModel {

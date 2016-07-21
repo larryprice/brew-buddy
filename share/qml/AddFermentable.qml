@@ -7,6 +7,8 @@ Page {
         title: i18n.tr("Create Fermentable")
     }
 
+    signal add(string type_, string desc_, string weight_, string units_)
+
     Column {
         spacing: units.gu(2)
         anchors {
@@ -21,7 +23,7 @@ Page {
         }
 
         ComboButton {
-            id: combo
+            id: fermentableType
             anchors {
                 left: parent.left
                 leftMargin: units.gu(2)
@@ -31,7 +33,7 @@ Page {
             expandedHeight: units.gu(18)
             onClicked: expanded = !expanded
             UbuntuListView {
-                height: combo.comboListHeight
+                height: fermentableType.comboListHeight
                 model: ["Malt", "Extract", "Adjunct", "Other"]
                 delegate: ListItem {
                     height: units.gu(3)
@@ -44,8 +46,8 @@ Page {
                     }
 
                     onClicked: {
-                        combo.text = modelData;
-                        combo.expanded = false;
+                        fermentableType.text = modelData;
+                        fermentableType.expanded = false;
                     }
                 }
             }
@@ -56,6 +58,7 @@ Page {
         }
 
         TextField {
+            id: description
             anchors {
                 leftMargin: units.gu(2)
                 left: parent.left
@@ -78,11 +81,36 @@ Page {
             }
 
             TextField {
+                id: weight
                 placeholderText: "9"
             }
 
-            TextField {
-                placeholderText: "units"
+
+            ComboButton {
+                id: weightUnits
+                width: units.gu(15)
+                text: "lbs"
+                expandedHeight: units.gu(18)
+                onClicked: expanded = !expanded
+                UbuntuListView {
+                    height: weightUnits.comboListHeight
+                    model: ["", "lbs", "oz", "gal", "kg", "g", "l", "ml"]
+                    delegate: ListItem {
+                        height: units.gu(3)
+                        Label {
+                            anchors {
+                                centerIn: parent
+                            }
+
+                            text: modelData
+                        }
+
+                        onClicked: {
+                            weightUnits.text = modelData;
+                            weightUnits.expanded = false;
+                        }
+                    }
+                }
             }
         }
 
@@ -91,6 +119,8 @@ Page {
             color: theme.palette.normal.positive
             onTriggered: {
                 console.debug("add this!")
+                add(fermentableType.text, description.text, weight.text, weightUnits.text);
+                pageStack.removePages(addFermentable)
             }
         }
     }
