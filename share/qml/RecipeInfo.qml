@@ -11,6 +11,7 @@ Page {
     header: PageHeader {
         title: i18n.tr("Create a Brew")
     }
+    property bool showContinue: false
 
     Column {
         anchors {
@@ -63,16 +64,6 @@ Page {
             height: Math.max(parent.height / 3, units.gu(6))
 
             placeholderText: "Light belgian ale with amarillo hops perfect for a summer barbeque."
-        }
-
-        Button {
-            anchors {
-                right: parent.right
-            }
-
-            text: "Continue to Recipe"
-            color: theme.palette.normal.positive
-            onClicked: pageStack.addPageToNextColumn(createInfo, Qt.resolvedUrl("RecipeFermentables.qml"))
         }
     }
 }

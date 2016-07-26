@@ -3,7 +3,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Themes 1.3
 
 /*!
-    \brief CreateFermentables page for defining brew ingredients
+    \brief RecipeFermentables page for defining brew ingredients
 */
 
 Page {

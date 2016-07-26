@@ -19,7 +19,7 @@ Page {
         trailingActionBar.actions: [
             Action {
                 iconName: "add"
-                onTriggered: pageStack.addPageToCurrentColumn(home, Qt.resolvedUrl("RecipeInfo.qml"))
+                onTriggered: pageStack.addPageToCurrentColumn(home, Qt.resolvedUrl("RecipeOverview.qml"))
             }
         ]
     }
@@ -37,7 +37,9 @@ Page {
                 horizontalCenter: parent.horizontalCenter
             }
             text: "Start a New Brew"
-            onClicked: pageStack.addPageToCurrentColumn(home, Qt.resolvedUrl("RecipeInfo.qml"))
+            onClicked: {
+                pageStack.addPageToCurrentColumn(home, Qt.resolvedUrl("RecipeOverview.qml"))
+            }
             color: theme.palette.normal.positive
 
             width: units.gu(30)
