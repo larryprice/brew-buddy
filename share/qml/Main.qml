@@ -16,5 +16,34 @@ MainView {
     AdaptivePageLayout {
         anchors.fill: parent
         primaryPageSource: Qt.resolvedUrl("Home.qml")
+        layouts: [
+            PageColumnsLayout {
+                when: width > units.gu(120)
+                PageColumn {
+                    minimumWidth: units.gu(30)
+                    maximumWidth: units.gu(60)
+                    preferredWidth: units.gu(40)
+                }
+                PageColumn {
+                    minimumWidth: units.gu(30)
+                    maximumWidth: units.gu(60)
+                    preferredWidth: units.gu(40)
+                }
+                PageColumn {
+                    fillWidth: true
+                }
+            },
+            PageColumnsLayout {
+                when: width > units.gu(80)
+                PageColumn {
+                    minimumWidth: units.gu(30)
+                    maximumWidth: units.gu(60)
+                    preferredWidth: units.gu(40)
+                }
+                PageColumn {
+                    fillWidth: true
+                }
+            }
+        ]
     }
 }

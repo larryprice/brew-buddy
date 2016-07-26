@@ -27,7 +27,7 @@ Page {
         fermentables.append({name: desc_, type_: type_, weight: weight_, weightUnits: units_})
     }
 
-    AddFermentable {
+    RecipeFermentablesAdd {
         id: addFermentablePage
     }
 

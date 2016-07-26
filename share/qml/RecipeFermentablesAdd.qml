@@ -4,7 +4,7 @@ import Ubuntu.Components 1.3
 Page {
     id: addFermentable
     header: PageHeader {
-        title: i18n.tr("Create Fermentable")
+        title: i18n.tr("Add Fermentable")
     }
 
     signal add(string type_, string desc_, string weight_, string units_)
