@@ -15,7 +15,6 @@ Page {
                 iconName: "add"
                 onTriggered: {
                     pageStack.addPageToNextColumn(createRecipe, addFermentablePage)
-
                     addFermentablePage.add.connect(onAddFermentable)
                 }
             }

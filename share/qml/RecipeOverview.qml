@@ -13,11 +13,20 @@ Page {
     }
     property string beerName: ""
 
+    RecipeInfo {
+        id: recipeInfoPage
+    }
+
     Component.onCompleted: {
-        var timer = Qt.createQmlObject("import QtQuick 2.3; Timer {interval: 0; repeat: false; running: true;}", recipeOverview, "MyTimer");
+        var timer = Qt.createQmlObject("import QtQuick 2.3; Timer {interval: 10; repeat: false; running: true;}", recipeOverview, "MyTimer");
         timer.triggered.connect(function(){
-            recipeOverview.pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeInfo.qml"))
+            recipeOverview.pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
+            recipeInfoPage.updateRecipeName.connect(updateRecipeName)
         });
+    }
+
+    function updateRecipeName(name) {
+        beerName = name;
     }
 
     Column {
@@ -33,7 +42,10 @@ Page {
                 horizontalCenter: parent.horizontalCenter
             }
             text: "Description"
-            onClicked: pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeInfo.qml"))
+            onClicked: {
+                pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
+                recipeInfo.updateRecipeName.connect(updateRecipeName)
+            }
             color: theme.palette.normal.positive
 
             width: units.gu(30)

@@ -11,7 +11,8 @@ Page {
     header: PageHeader {
         title: i18n.tr("Create a Brew")
     }
-    property bool showContinue: false
+
+    signal updateRecipeName(string name)
 
     Column {
         anchors {
@@ -33,6 +34,9 @@ Page {
                 rightMargin: units.gu(2)
             }
             width: parent.width
+            onTextChanged: {
+                updateRecipeName(text)
+            }
 
             placeholderText: "Hoptown Funk"
         }
