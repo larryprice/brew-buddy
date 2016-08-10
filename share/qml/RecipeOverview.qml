@@ -9,79 +9,122 @@ import Ubuntu.Components.Themes 1.3
 Page {
     id: recipeOverview
     header: PageHeader {
-        title: beerName === "" ? i18n.tr("New Beer") : beerName
-    }
-    property string beerName: ""
-
-    RecipeInfo {
-        id: recipeInfoPage
+        title: recipeInfoPage.name === "" ? i18n.tr("New Beer") : recipeInfoPage.name
     }
 
     Component.onCompleted: {
         var timer = Qt.createQmlObject("import QtQuick 2.3; Timer {interval: 10; repeat: false; running: true;}", recipeOverview, "MyTimer");
         timer.triggered.connect(function(){
             recipeOverview.pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
-            recipeInfoPage.updateRecipeName.connect(updateRecipeName)
         });
     }
 
-    function updateRecipeName(name) {
-        beerName = name;
-    }
-
     Column {
-        spacing: units.gu(2)
         anchors {
-            horizontalCenter: parent.horizontalCenter
             top: recipeOverview.header.bottom
-            topMargin: parent.height / 4
+            left: parent.left;
+            right: parent.right;
         }
+        height: parent.height
 
-        Button {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-            }
-            text: "Description"
+        ListItem {
             onClicked: {
                 pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
-                recipeInfo.updateRecipeName.connect(updateRecipeName)
             }
-            color: theme.palette.normal.positive
 
-            width: units.gu(30)
+            ListItemLayout {
+                title.text: "Description"
+                subtitle.text: "Basic information about your brew"
+                Icon {
+                    name: recipeInfoPage.valid ? "tick" : "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
         }
 
-        Button {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
+        ListItem {
+            onClicked: {
+                console.debug("GOTO Specifications (Not implemented)")
             }
-            text: "Specifications"
-            onClicked: print("specs - not implemented")
-            color: theme.palette.normal.positive
 
-            width: units.gu(30)
+            ListItemLayout {
+                title.text: "Specifications"
+                subtitle.text: "Details such as gravity and ABV"
+                Icon {
+                    name: "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
         }
 
-        Button {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
+        ListItem {
+            onClicked: {
+                pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeFermentables.qml"))
             }
-            text: "Ingredients"
-            onClicked: pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeFermentables.qml"))
-            color: theme.palette.normal.positive
 
-            width: units.gu(30)
+            ListItemLayout {
+                title.text: "Fermentables"
+                subtitle.text: "Grain bill, fruit, etc."
+                Icon {
+                    name: "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
         }
 
-        Button {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
+        ListItem {
+            onClicked: {
+                console.debug("GOTO Hops (Not implemented)")
             }
-            text: "Let's Brew This!"
-            onClicked: print("brew it to it - not implmented")
-            color: theme.palette.normal.positive
 
-            width: units.gu(30)
+            ListItemLayout {
+                title.text: "Hops"
+                subtitle.text: "Hop types and schedule"
+                Icon {
+                    name: "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
         }
+
+        ListItem {
+            onClicked: {
+                console.debug("GOTO Yeast (Not implemented)")
+            }
+
+            ListItemLayout {
+                title.text: "Yeast"
+                subtitle.text: "Yeast varities"
+                Icon {
+                    name: "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
+        }
+
+        ListItem {
+            onClicked: {
+                console.debug("GOTO Fermentation (Not implemented)")
+            }
+
+            ListItemLayout {
+                title.text: "Fermentation"
+                subtitle.text: "Timing and climate"
+                Icon {
+                    name: "next"
+                    SlotsLayout.position: SlotsLayout.Trailing;
+                    width: units.gu(2)
+                }
+            }
+        }
+    }
+
+    RecipeInfo {
+        id: recipeInfoPage
     }
 }

@@ -12,7 +12,8 @@ Page {
         title: i18n.tr("Create a Brew")
     }
 
-    signal updateRecipeName(string name)
+    property alias name: nameField.text
+    property var valid: nameField.text !== "" && brewersField.text !== "" && descriptionField.text !== ""
 
     Column {
         anchors {
@@ -29,14 +30,12 @@ Page {
         }
 
         TextField {
+            id: nameField
             anchors {
                 leftMargin: units.gu(2)
                 rightMargin: units.gu(2)
             }
             width: parent.width
-            onTextChanged: {
-                updateRecipeName(text)
-            }
 
             placeholderText: "Hoptown Funk"
         }
@@ -46,6 +45,7 @@ Page {
         }
 
         TextField {
+            id: brewersField
             anchors {
                 leftMargin: units.gu(2)
                 rightMargin: units.gu(2)
@@ -60,6 +60,7 @@ Page {
         }
 
         TextArea {
+            id: descriptionField
             anchors {
                 leftMargin: units.gu(2)
                 rightMargin: units.gu(2)
