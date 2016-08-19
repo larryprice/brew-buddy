@@ -45,14 +45,14 @@ Page {
 
         ListItem {
             onClicked: {
-                console.debug("GOTO Specifications (Not implemented)")
+                pageStack.addPageToNextColumn(recipeOverview, recipeSpecsPage)
             }
 
             ListItemLayout {
                 title.text: "Specifications"
                 subtitle.text: "Details such as gravity and ABV"
                 Icon {
-                    name: "next"
+                    name: recipeSpecsPage.valid ? "tick" : "next"
                     SlotsLayout.position: SlotsLayout.Trailing;
                     width: units.gu(2)
                 }
@@ -126,5 +126,9 @@ Page {
 
     RecipeInfo {
         id: recipeInfoPage
+    }
+
+    RecipeSpecifications {
+      id: recipeSpecsPage
     }
 }

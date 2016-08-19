@@ -9,7 +9,7 @@ import Ubuntu.Components.Themes 1.3
 Page {
     id: createInfo
     header: PageHeader {
-        title: i18n.tr("Create a Brew")
+        title: i18n.tr("Recipe Information")
     }
 
     property alias name: nameField.text
