@@ -1,6 +1,5 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Themes 1.3
 
 /*!
     \brief MainView initiaiting navigation components, et al
@@ -15,7 +14,7 @@ MainView {
 
     AdaptivePageLayout {
         anchors.fill: parent
-        primaryPageSource: Qt.resolvedUrl("Home.qml")
+        primaryPage: homepage
         layouts: [
             PageColumnsLayout {
                 when: width > units.gu(120)
@@ -45,5 +44,11 @@ MainView {
                 }
             }
         ]
+    }
+
+    // TODO: We have to manually include the home page because of this bug:
+    // https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1585996
+    Home {
+      id: homepage
     }
 }

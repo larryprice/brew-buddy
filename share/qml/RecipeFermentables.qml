@@ -45,6 +45,26 @@ Page {
 
         delegate: ListItem {
             height: units.gu(9)
+            leadingActions: ListItemActions {
+              actions: [
+                Action {
+                  iconName: "delete"
+                  onTriggered: {
+                      console.debug("REMOVE FERMENTABLE FROM MODEL")
+                  }
+                }
+              ]
+            }
+            trailingActions: ListItemActions {
+              actions: [
+                Action {
+                  iconName: "edit"
+                  onTriggered: {
+                    console.debug("EDIT FERMENTABLE MODEL")
+                  }
+                }
+              ]
+            }
             Column {
                 anchors {
                     margins: units.gu(1)

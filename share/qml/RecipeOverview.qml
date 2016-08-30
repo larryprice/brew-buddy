@@ -61,7 +61,7 @@ Page {
 
         ListItem {
             onClicked: {
-                pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeFermentables.qml"))
+                pageStack.addPageToNextColumn(recipeOverview, recipeFermentablesPage)
             }
 
             ListItemLayout {
@@ -130,5 +130,9 @@ Page {
 
     RecipeSpecifications {
       id: recipeSpecsPage
+    }
+
+    RecipeFermentables {
+      id: recipeFermentablesPage
     }
 }
