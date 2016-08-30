@@ -9,13 +9,13 @@ import Ubuntu.Components.Themes 1.3
 Page {
     id: recipeOverview
     header: PageHeader {
-        title: recipeInfoPage.name === "" ? i18n.tr("New Beer") : recipeInfoPage.name
+        title: recipe.info.name === "" ? i18n.tr("New Beer") : recipe.info.name
     }
 
     Component.onCompleted: {
         var timer = Qt.createQmlObject("import QtQuick 2.3; Timer {interval: 10; repeat: false; running: true;}", recipeOverview, "MyTimer");
         timer.triggered.connect(function(){
-            recipeOverview.pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
+            recipeOverview.pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeInfo.qml"))
         });
     }
 
@@ -29,14 +29,14 @@ Page {
 
         ListItem {
             onClicked: {
-                pageStack.addPageToNextColumn(recipeOverview, recipeInfoPage)
+                pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeInfo.qml"))
             }
 
             ListItemLayout {
                 title.text: "Description"
                 subtitle.text: "Basic information about your brew"
                 Icon {
-                    name: recipeInfoPage.valid ? "tick" : "next"
+                    name: recipe.info.valid ? "tick" : "next"
                     SlotsLayout.position: SlotsLayout.Trailing;
                     width: units.gu(2)
                 }
@@ -122,10 +122,6 @@ Page {
                 }
             }
         }
-    }
-
-    RecipeInfo {
-        id: recipeInfoPage
     }
 
     RecipeSpecifications {

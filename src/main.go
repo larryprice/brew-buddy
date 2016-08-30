@@ -19,30 +19,52 @@ func run() error {
 		return err
 	}
 
-	ctrl := Control{Message: "Hello from Go!"}
 	context := engine.Context()
-	context.SetVar("ctrl", &ctrl)
+
+  recipe := Recipe{}
+	context.SetVar("recipe", &recipe)
 
 	win := component.CreateWindow(nil)
-	ctrl.Root = win.Root()
 
 	win.Show()
 	win.Wait()
 	return nil
 }
 
-type Control struct {
-	Root    qml.Object
-	Message string
+type Recipe struct {
+	Info struct {
+		Name        string
+		Description string
+		Brewers     string
+		Valid       bool
+	}
 }
 
-func (ctrl *Control) Hello() {
+func (r *Recipe) SetDescription(desc string) {
+	log.Print("Setting Description")
 	go func() {
-		if ctrl.Message == "Hello from Go!" {
-			ctrl.Message = "Hello from Go Again!"
-		} else {
-			ctrl.Message = "Hello from Go!"
-		}
-		qml.Changed(ctrl, &ctrl.Message)
+		r.Info.Description = desc
+		r.updateInfo()
 	}()
+}
+
+func (r *Recipe) SetName(name string) {
+	log.Print("Setting Name")
+	go func() {
+		r.Info.Name = name
+		r.updateInfo()
+	}()
+}
+
+func (r *Recipe) SetBrewers(brewers string) {
+	log.Print("Setting Brewers")
+	go func() {
+		r.Info.Brewers = brewers
+		r.updateInfo()
+	}()
+}
+
+func (r *Recipe) updateInfo() {
+	r.Info.Valid = r.Info.Name != "" && r.Info.Description != "" && r.Info.Brewers != ""
+	qml.Changed(r, &r.Info)
 }
