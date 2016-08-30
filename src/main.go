@@ -38,6 +38,19 @@ type Recipe struct {
 		Brewers     string
 		Valid       bool
 	}
+	Specifications struct {
+		OG  string
+		FG  string
+		ABV string
+		SRM string
+		IBU string
+	}
+	Fermentables []struct {
+		Type        string
+		Description string
+		Weight      string
+		WeightUnits string
+	}
 }
 
 func (r *Recipe) SetDescription(desc string) {
