@@ -12,9 +12,6 @@ Page {
         title: i18n.tr("Recipe Information")
     }
 
-    property alias name: nameField.text
-    property var valid: nameField.text !== "" && brewersField.text !== "" && descriptionField.text !== ""
-
     Column {
         anchors {
             top: createInfo.header.bottom
@@ -39,7 +36,7 @@ Page {
             text: recipe.info.name
 
             onTextChanged: {
-              recipe.setName(nameField.text)
+              recipe.info.setName(nameField.text)
             }
 
             placeholderText: "Hoptown Funk"
@@ -59,7 +56,7 @@ Page {
             text: recipe.info.brewers
 
             onTextChanged: {
-              recipe.setBrewers(brewersField.text)
+              recipe.info.setBrewers(brewersField.text)
             }
 
             placeholderText: "Larry, Corinne"
@@ -79,7 +76,7 @@ Page {
             height: Math.max(parent.height / 3, units.gu(6))
             text: recipe.info.description
             onTextChanged: {
-              recipe.setDescription(descriptionField.text)
+              recipe.info.setDescription(descriptionField.text)
             }
 
             placeholderText: "Light belgian ale with amarillo hops perfect for a summer barbeque."

@@ -22,6 +22,9 @@ func run() error {
 	context := engine.Context()
 
   recipe := Recipe{}
+	recipe.Info.parent = &recipe
+	recipe.Specifications.parent = &recipe
+	recipe.Info.parent = &recipe
 	context.SetVar("recipe", &recipe)
 
 	win := component.CreateWindow(nil)
@@ -32,52 +35,65 @@ func run() error {
 }
 
 type Recipe struct {
-	Info struct {
-		Name        string
-		Description string
-		Brewers     string
-		Valid       bool
-	}
-	Specifications struct {
-		OG  string
-		FG  string
-		ABV string
-		SRM string
-		IBU string
-	}
-	Fermentables []struct {
-		Type        string
-		Description string
-		Weight      string
-		WeightUnits string
-	}
+	Info           RecipeInfo
+	Specifications RecipeSpecifications
+	Fermentables   RecipeFermentables
 }
 
-func (r *Recipe) SetDescription(desc string) {
+type RecipeSpecifications struct {
+	parent *Recipe
+	OG     string
+	FG     string
+	ABV    string
+	SRM    string
+	IBU    string
+	Valid  bool
+}
+
+type RecipeFermentables []RecipeFermentable
+
+type RecipeFermentable struct {
+	parent      *Recipe
+	Type        string
+	Description string
+	Weight      string
+	WeightUnits string
+	Valid       bool
+}
+
+type RecipeInfo struct {
+	parent      *Recipe
+	Name        string
+	Description string
+	Brewers     string
+	Valid       bool
+}
+
+func (r *RecipeInfo) SetDescription(desc string) {
 	log.Print("Setting Description")
 	go func() {
-		r.Info.Description = desc
-		r.updateInfo()
+		r.Description = desc
+		r.update()
 	}()
 }
 
-func (r *Recipe) SetName(name string) {
+func (r *RecipeInfo) SetName(name string) {
 	log.Print("Setting Name")
 	go func() {
-		r.Info.Name = name
-		r.updateInfo()
+		r.Name = name
+		r.update()
 	}()
 }
 
-func (r *Recipe) SetBrewers(brewers string) {
+func (r *RecipeInfo) SetBrewers(brewers string) {
 	log.Print("Setting Brewers")
 	go func() {
-		r.Info.Brewers = brewers
-		r.updateInfo()
+		r.Brewers = brewers
+		r.update()
 	}()
 }
 
-func (r *Recipe) updateInfo() {
-	r.Info.Valid = r.Info.Name != "" && r.Info.Description != "" && r.Info.Brewers != ""
-	qml.Changed(r, &r.Info)
+func (r *RecipeInfo) update() {
+	r.Valid = r.Name != "" && r.Description != "" && r.Brewers != ""
+	qml.Changed(r.parent, r)
 }
