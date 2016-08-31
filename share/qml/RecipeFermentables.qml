@@ -14,20 +14,10 @@ Page {
             Action {
                 iconName: "add"
                 onTriggered: {
-                    pageStack.addPageToNextColumn(createRecipe, addFermentablePage)
-                    addFermentablePage.add.connect(onAddFermentable)
+                    pageStack.addPageToNextColumn(createRecipe, Qt.resolvedUrl("RecipeFermentablesAdd.qml"))
                 }
             }
         ]
-    }
-
-    function onAddFermentable(type_, desc_, weight_, units_) {
-        addFermentablePage.add.disconnect(onAddFermentable)
-        fermentables.append({name: desc_, type_: type_, weight: weight_, weightUnits: units_})
-    }
-
-    RecipeFermentablesAdd {
-        id: addFermentablePage
     }
 
     ListModel {
@@ -41,7 +31,7 @@ Page {
             right: parent.right;
         }
         height: parent.height
-        model: fermentables
+        model: recipe.fermentables.len
 
         delegate: ListItem {
             height: units.gu(9)
@@ -74,14 +64,14 @@ Page {
                 }
 
                 Label {
-                    text: name
+                    text: recipe.fermentables.get(index).description
                     fontSize: "large"
                 }
                 Label {
-                    text: weight + " " + weightUnits
+                    text: recipe.fermentables.get(index).weight + " " + recipe.fermentables.get(index).weightUnits
                 }
                 Label {
-                    text: type_
+                    text: recipe.fermentables.get(index).fermType
                     fontSize: "small"
                 }
             }

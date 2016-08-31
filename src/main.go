@@ -24,7 +24,7 @@ func run() error {
   recipe := Recipe{}
 	recipe.Info.parent = &recipe
 	recipe.Specifications.parent = &recipe
-	recipe.Info.parent = &recipe
+	recipe.Fermentables.parent = &recipe
 	context.SetVar("recipe", &recipe)
 
 	win := component.CreateWindow(nil)
@@ -50,15 +50,49 @@ type RecipeSpecifications struct {
 	Valid  bool
 }
 
-type RecipeFermentables []RecipeFermentable
+type RecipeFermentables struct {
+	parent *Recipe
+	Valid  bool
+	Items  []RecipeFermentable
+	Len  int
+}
 
 type RecipeFermentable struct {
-	parent      *Recipe
-	Type        string
+	FermType    string
 	Description string
 	Weight      string
 	WeightUnits string
-	Valid       bool
+}
+
+func (r *RecipeFermentables) Length() int {
+	return len(r.Items)
+}
+
+func (r *RecipeFermentables) Get(index int) RecipeFermentable {
+	log.Print("Get fermentable with index ", index)
+	if index > r.Len {
+		return RecipeFermentable{}
+	}
+	return r.Items[index]
+}
+
+func (r *RecipeFermentables) Add(fermType string, description string, weight string, weightUnits string) {
+	log.Print("Add fermentable")
+	go func() {
+		r.Items = append(r.Items, RecipeFermentable{
+			FermType: fermType,
+			Description: description,
+			Weight: weight,
+			WeightUnits: weightUnits,
+		})
+		r.update()
+	}()
+}
+
+func (r *RecipeFermentables) update() {
+	r.Len = len(r.Items)
+	r.Valid = r.Len > 0
+	qml.Changed(r.parent, r)
 }
 
 type RecipeInfo struct {
@@ -70,7 +104,6 @@ type RecipeInfo struct {
 }
 
 func (r *RecipeInfo) SetDescription(desc string) {
-	log.Print("Setting Description")
 	go func() {
 		r.Description = desc
 		r.update()
@@ -78,7 +111,6 @@ func (r *RecipeInfo) SetDescription(desc string) {
 }
 
 func (r *RecipeInfo) SetName(name string) {
-	log.Print("Setting Name")
 	go func() {
 		r.Name = name
 		r.update()
@@ -86,7 +118,6 @@ func (r *RecipeInfo) SetName(name string) {
 }
 
 func (r *RecipeInfo) SetBrewers(brewers string) {
-	log.Print("Setting Brewers")
 	go func() {
 		r.Brewers = brewers
 		r.update()

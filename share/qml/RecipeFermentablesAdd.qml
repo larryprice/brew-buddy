@@ -7,8 +7,6 @@ Page {
         title: i18n.tr("Add Fermentable")
     }
 
-    signal add(string type_, string desc_, string weight_, string units_)
-
     Column {
         spacing: units.gu(2)
         anchors {
@@ -119,14 +117,7 @@ Page {
             color: theme.palette.normal.positive
             enabled: description.text !== "" && weight.text !== ""
             onTriggered: {
-                add(fermentableType.text, description.text, weight.text, weightUnits.text);
-
-                // reset page
-                fermentableType.text = "Malt"
-                description.text = ""
-                weight.text = ""
-                weightUnits.text = "lbs"
-
+                recipe.fermentables.add(fermentableType.text, description.text, weight.text, weightUnits.text);
                 pageStack.removePages(addFermentable)
             }
         }

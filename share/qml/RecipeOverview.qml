@@ -61,14 +61,14 @@ Page {
 
         ListItem {
             onClicked: {
-                pageStack.addPageToNextColumn(recipeOverview, recipeFermentablesPage)
+                pageStack.addPageToNextColumn(recipeOverview, Qt.resolvedUrl("RecipeFermentables.qml"))
             }
 
             ListItemLayout {
                 title.text: "Fermentables"
                 subtitle.text: "Grain bill, fruit, etc."
                 Icon {
-                    name: "next"
+                    name: recipe.fermentables.valid ? "tick" : "next"
                     SlotsLayout.position: SlotsLayout.Trailing;
                     width: units.gu(2)
                 }
@@ -126,9 +126,5 @@ Page {
 
     RecipeSpecifications {
       id: recipeSpecsPage
-    }
-
-    RecipeFermentables {
-      id: recipeFermentablesPage
     }
 }
