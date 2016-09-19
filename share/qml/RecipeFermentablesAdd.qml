@@ -6,6 +6,8 @@ Page {
     header: PageHeader {
         title: i18n.tr("Add Fermentable")
     }
+    property var item: undefined
+    property var index: -1
 
     Column {
         spacing: units.gu(2)
@@ -27,7 +29,7 @@ Page {
                 leftMargin: units.gu(2)
             }
             width: units.gu(23)
-            text: "Malt"
+            text: item ? item.fermType : "Malt"
             expandedHeight: units.gu(18)
             onClicked: expanded = !expanded
             UbuntuListView {
@@ -62,6 +64,7 @@ Page {
                 left: parent.left
                 right: parent.right
             }
+            text: item ? item.description : ""
 
             placeholderText: "2-row barley"
         }
@@ -80,6 +83,7 @@ Page {
 
             TextField {
                 id: weight
+                text: item ? item.weight : ""
                 placeholderText: "9"
             }
 
@@ -87,7 +91,7 @@ Page {
             ComboButton {
                 id: weightUnits
                 width: units.gu(15)
-                text: "lbs"
+                text: item ? item.weightUnits : "lbs"
                 expandedHeight: units.gu(18)
                 onClicked: expanded = !expanded
                 UbuntuListView {
@@ -113,11 +117,15 @@ Page {
         }
 
         Button {
-            text: "Add"
+            text: index > -1 ? "Update" : "Add"
             color: theme.palette.normal.positive
             enabled: description.text !== "" && weight.text !== ""
             onTriggered: {
-                recipe.fermentables.add(fermentableType.text, description.text, weight.text, weightUnits.text);
+                if (index === -1) {
+                    recipe.fermentables.add(fermentableType.text, description.text, weight.text, weightUnits.text);
+                } else {
+                    recipe.fermentables.edit(index, fermentableType.text, description.text, weight.text, weightUnits.text);
+                }
                 pageStack.removePages(addFermentable)
             }
         }

@@ -34,13 +34,14 @@ Page {
         model: recipe.fermentables.len
 
         delegate: ListItem {
+            property var item: recipe.fermentables.get(index)
             height: units.gu(9)
             leadingActions: ListItemActions {
               actions: [
                 Action {
                   iconName: "delete"
                   onTriggered: {
-                      console.debug("REMOVE FERMENTABLE FROM MODEL")
+                    recipe.fermentables.delete(index)
                   }
                 }
               ]
@@ -50,10 +51,13 @@ Page {
                 Action {
                   iconName: "edit"
                   onTriggered: {
-                    console.debug("EDIT FERMENTABLE MODEL")
+                      pageStack.addPageToNextColumn(createRecipe, Qt.resolvedUrl("RecipeFermentablesAdd.qml"), {item: item, index: index})
                   }
                 }
               ]
+            }
+            onClicked: {
+                pageStack.addPageToNextColumn(createRecipe, Qt.resolvedUrl("RecipeFermentablesAdd.qml"), {item: item, index: index})
             }
             Column {
                 anchors {
@@ -68,10 +72,10 @@ Page {
                     fontSize: "large"
                 }
                 Label {
-                    text: recipe.fermentables.get(index).weight + " " + recipe.fermentables.get(index).weightUnits
+                    text: item.weight + " " + item.weightUnits
                 }
                 Label {
-                    text: recipe.fermentables.get(index).fermType
+                    text: item.fermType
                     fontSize: "small"
                 }
             }

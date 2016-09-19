@@ -64,10 +64,6 @@ type RecipeFermentable struct {
 	WeightUnits string
 }
 
-func (r *RecipeFermentables) Length() int {
-	return len(r.Items)
-}
-
 func (r *RecipeFermentables) Get(index int) RecipeFermentable {
 	log.Print("Get fermentable with index ", index)
 	if index > r.Len {
@@ -85,6 +81,28 @@ func (r *RecipeFermentables) Add(fermType string, description string, weight str
 			Weight: weight,
 			WeightUnits: weightUnits,
 		})
+		r.update()
+	}()
+}
+
+func (r *RecipeFermentables) Delete(index int) {
+	log.Print("Delete fermentable")
+	go func() {
+		r.Items = append(r.Items[:index], r.Items[index+1:]...)
+		r.update()
+	}()
+}
+
+func (r *RecipeFermentables) Edit(index int, fermType string, description string, weight string, weightUnits string) {
+	log.Print("Edit fermentable")
+	go func() {
+		temp := append(r.Items[:index], RecipeFermentable{
+			FermType: fermType,
+			Description: description,
+			Weight: weight,
+			WeightUnits: weightUnits,
+		})
+		r.Items = append(temp, r.Items[index+1:]...)
 		r.update()
 	}()
 }
